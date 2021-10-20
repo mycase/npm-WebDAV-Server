@@ -1,4 +1,4 @@
-import { HTTPRequestContext } from '../../../../src/server/v2/RequestContext';
+import { HTTPRequestContext } from '../src/server/v2/RequestContext';
 
 describe('encodeURL', () => {
     test('standard url', () => {
