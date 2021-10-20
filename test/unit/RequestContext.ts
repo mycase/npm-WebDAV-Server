@@ -1,4 +1,4 @@
-import { HTTPRequestContext } from '../src/server/v2/RequestContext';
+import { HTTPRequestContext } from '../../src/server/v2/RequestContext';
 
 describe('encodeURL', () => {
     test('standard url', () => {
@@ -23,11 +23,6 @@ describe('encodeURL', () => {
     test('just root url', () => {
         const encodedUrl = HTTPRequestContext.encodeURL('http://localhost/');
         expect(encodedUrl).toBe('http://localhost/');
-    });
-
-    test('does not start with http(s)', () => {
-        const encodedUrl = HTTPRequestContext.encodeURL('//localhost/test/item');
-        expect(encodedUrl).toBe('localhost/test/item');
     });
 
     test('empty string url', () => {

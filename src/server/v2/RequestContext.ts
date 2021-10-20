@@ -319,12 +319,8 @@ export class HTTPRequestContext extends RequestContext
             return url;
         }
         const stringArray = url.split('/');
-        const httpPrefixed = stringArray[0].startsWith('http');
-        const rootPath = httpPrefixed ? `${stringArray[0]}//${stringArray[2]}` : `${stringArray[2]}`;
-        const encodeUri = stringArray.reduce((previousVal, currentVal, curIdx) => {
-            if (curIdx < 3) {
-                return previousVal;
-            }
+        const rootPath = `${stringArray[0]}//${stringArray[2]}`;
+        const encodeUri = stringArray.splice(3).reduce((previousVal, currentVal, curIdx) => {
             return `${previousVal}/${encodeURIComponent(currentVal)}`;
         }, rootPath);
         return encodeUri;
