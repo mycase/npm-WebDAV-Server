@@ -26,6 +26,7 @@
     "build": "cd src && tsc --declaration",
     "lint": "tslint --project tslint.json src/**/v2/**/*.ts",
     "test": "npm run build-test && npm run start-test",
+    "jest-test": "jest",
     "start-test": "node test/v2/root.js && node test/v1/root.js",
     "build-test": "cd test/v2/tests.ts && tsc"
   },
@@ -43,13 +44,16 @@
     "xml-js-builder": "^1.0.3"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^7.0.64",
     "@types/request": "0.0.44",
     "express": "^4.16.4",
     "form-data": "^3.0.0",
+    "jest": "^27.3.1",
     "request": "^2.85.0",
     "safe-regex": "^1.1.0",
+    "ts-jest": "^27.0.7",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2",
     "webdav-fs": "^1.10.1",

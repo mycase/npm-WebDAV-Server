@@ -306,10 +306,24 @@ export class HTTPRequestContext extends RequestContext
             })
         })
     }
-    
+
+
+    // Ignores encoding rootPaths and encodes the URI by component afterwards
+    // Note here is that this would break query params however WebDav does not support query params
     static encodeURL(url : string)
     {
-        return encodeURI(url);
+        // If URL is http://localhost:1900/parent/child
+        // produces the example of stringArray[0] = 'http:', stringArray[1] = '',
+        // stringArray[2] = 'localhost:1900', stringArray[3] = parent, stringArray[4] = child
+        if (url.length === 0) {
+            return url;
+        }
+        const stringArray = url.split('/');
+        const rootPath = `${stringArray[0]}//${stringArray[2]}`;
+        const encodeUri = stringArray.splice(3).reduce((previousVal, currentVal, curIdx) => {
+            return `${previousVal}/${encodeURIComponent(currentVal)}`;
+        }, rootPath);
+        return encodeUri;
     }
 
     noBodyExpected(callback : () => void)
