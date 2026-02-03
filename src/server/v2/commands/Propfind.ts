@@ -179,7 +179,6 @@ export default class implements HTTPMethod
         }
 
         mustDisplayTag('getlastmodified')
-        mustDisplayTag('lockdiscovery')
         mustDisplayTag('supportedlock')
         mustDisplayTag('creationdate')
         mustDisplayTag('resourcetype')
@@ -203,34 +202,6 @@ export default class implements HTTPMethod
                 
                 nbOut(e);
             }))
-        })
-
-        displayValue('lockdiscovery', () =>
-        {
-            resource.listDeepLocks((e, locks) => {
-                if(e)
-                    return nbOut(e);
-
-                for(const path in locks)
-                {
-                    for(const _lock of locks[path])
-                    {
-                        const lock : Lock = _lock;
-                        const activelock = tags.lockdiscovery.el.ele('D:activelock');
-                        
-                        activelock.ele('D:lockscope').ele('D:' + lock.lockKind.scope.value.toLowerCase())
-                        activelock.ele('D:locktype').ele('D:' + lock.lockKind.type.value.toLowerCase())
-                        activelock.ele('D:depth').add('Infinity')
-                        if(lock.owner)
-                            activelock.ele('D:owner').add(lock.owner)
-                        activelock.ele('D:timeout').add(`Second-${lock.expirationDate - Date.now()}`)
-                        activelock.ele('D:locktoken').ele('D:href', undefined, true).add(lock.uuid)
-                        activelock.ele('D:lockroot').ele('D:href', undefined, true).add(HTTPRequestContext.encodeURL(ctx.fullUri(path)))
-                    }
-                }
-                
-                nbOut(null);
-            })
         })
         
         ++nb;
