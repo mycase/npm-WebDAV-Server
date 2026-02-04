@@ -186,13 +186,13 @@ export default class implements HTTPMethod
         mustDisplayTag('displayname')
         mustDisplayTag('getetag')
 
-        function displayValue(values : string[] | string, fn : () => void)
-        {
+        function displayValue(values, fn : () => void) {
             if(values.constructor === String ? tags[values as string].value : (values as string[]).some((n) => tags[n].value))
             {
                 ++nb;
                 process.nextTick(fn);
             }
+            console.log('nothing burger');
         }
 
         displayValue('creationdate', () =>
