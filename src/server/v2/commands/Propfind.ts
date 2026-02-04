@@ -179,7 +179,6 @@ export default class implements HTTPMethod
         }
 
         mustDisplayTag('getlastmodified')
-        mustDisplayTag('lockdiscovery')
         mustDisplayTag('supportedlock')
         mustDisplayTag('creationdate')
         mustDisplayTag('resourcetype')
