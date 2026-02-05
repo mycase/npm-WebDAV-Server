@@ -179,7 +179,6 @@ export default class implements HTTPMethod
         }
 
         mustDisplayTag('getlastmodified')
-        mustDisplayTag('supportedlock')
         mustDisplayTag('creationdate')
         mustDisplayTag('resourcetype')
         mustDisplayTag('displayname')
@@ -262,28 +261,6 @@ export default class implements HTTPMethod
                 if(!e)
                     tags.displayname.el.add(name || '');
                 nbOut(e);
-            }))
-        })
-
-        displayValue('supportedlock', () =>
-        {
-            resource.availableLocks((e, lockKinds) => process.nextTick(() => {
-                if(e)
-                {
-                    nbOut(e);
-                    return;
-                }
-
-                lockKinds.forEach((lockKind) => {
-                    const lockentry = tags.supportedlock.el.ele('D:lockentry')
-
-                    const lockscope = lockentry.ele('D:lockscope')
-                    lockscope.ele('D:' + lockKind.scope.value.toLowerCase())
-
-                    const locktype = lockentry.ele('D:locktype')
-                    locktype.ele('D:' + lockKind.type.value.toLowerCase())
-                })
-                nbOut();
             }))
         })
 
